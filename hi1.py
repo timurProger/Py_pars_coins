@@ -1,6 +1,14 @@
 #!C:\Users\asd\AppData\Local\Programs\Python\Python36-32\pythonw.exe
 #империя https://www.reviewdetector.ru/index.php?showforum=69&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=
 #советы https://www.reviewdetector.ru/index.php?showforum=70&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=
+import smtplib
+import email, smtplib, ssl
+
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 import urllib.request
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as xml
@@ -29,12 +37,169 @@ def currentNumber():
 	full_date = mon + '.' + date_num;
 	return full_date
 
+def sendSovet():
+
+	subject = "Советы"
+	body = "This is an email with attachment sent from Python"
+	sender_email = "timurahaha@gmail.com"
+	receiver_email = "igorch1@mail.ru"
+	password = "tim9162001"
+	# Create a multipart message and set headers
+	message = MIMEMultipart()
+	message["From"] = sender_email
+	message["To"] = receiver_email
+	message["Subject"] = subject
+	message["Bcc"] = receiver_email  # Recommended for mass emails
+
+	# Add body to email
+	message.attach(MIMEText(body, "plain"))
+
+	sovet = "sovet.html"
+
+	# Open html file in binary mode
+	with open(sovet, "rb") as attachment:
+		# Add file as application/octet-stream
+		part = MIMEBase("application", "octet-stream")
+		part.set_payload(attachment.read())
+
+	# Encode file in ASCII characters to send by email    
+	encoders.encode_base64(part)
+	#encoders.encode_base64()
+
+	# Add header as key/value pair to attachment part
+	part.add_header(
+		"Content-Disposition",
+		f"attachment; filename = {sovet};"
+
+	)	
+
+	# Add attachment to message and convert message to string
+	message.attach(part)
+	text = message.as_string()
+
+	# Localg in to server using secure context and send email
+	context = ssl.create_default_context()
+	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		server.login(sender_email, password)
+		server.sendmail(sender_email, receiver_email, text)
+
+
+def sendImper():
+	subject = "Имперцы"
+	body = "This is an email with attachment sent from Python"
+	sender_email = "timurahaha@gmail.com"
+	receiver_email = "igorch1@mail.ru"
+	password = "tim9162001"
+	# Create a multipart message and set headers
+	message = MIMEMultipart()
+	message["From"] = sender_email
+	message["To"] = receiver_email
+	message["Subject"] = subject
+	message["Bcc"] = receiver_email  # Recommended for mass emails
+
+	# Add body to email
+	message.attach(MIMEText(body, "plain"))
+
+	imper = "imper.html"  # In same directory as script
+	
+
+	# Open html file in binary mode
+	with open(imper, "rb") as attachment:
+		# Add file as application/octet-stream
+		part = MIMEBase("application", "octet-stream")
+		part.set_payload(attachment.read())
+
+	# Encode file in ASCII characters to send by email    
+	encoders.encode_base64(part)
+	#encoders.encode_base64()
+
+	# Add header as key/value pair to attachment part
+	part.add_header(
+		"Content-Disposition",
+		f"attachment; filename = {imper};"
+
+	)	
+
+	# Add attachment to message and convert message to string
+	message.attach(part)
+	text = message.as_string()
+
+	# Localg in to server using secure context and send email
+	context = ssl.create_default_context()
+	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		server.login(sender_email, password)
+		server.sendmail(sender_email, receiver_email, text)
+
+def sendZolotaia():
+	subject = "Чешуя"
+	body = "This is an email with attachment sent from Python"
+	sender_email = "timurahaha@gmail.com"
+	receiver_email = "igorch1@mail.ru"
+	password = "tim9162001"
+	# Create a multipart message and set headers
+	message = MIMEMultipart()
+	message["From"] = sender_email
+	message["To"] = receiver_email
+	message["Subject"] = subject
+	message["Bcc"] = receiver_email  # Recommended for mass emails
+
+	# Add body to email
+	message.attach(MIMEText(body, "plain"))
+
+	Zolotaia_orda = "Zolotaia_orda.html"  # In same directory as script
+	
+
+	# Open html file in binary mode
+	with open(Zolotaia_orda, "rb") as attachment:
+		# Add file as application/octet-stream
+		part = MIMEBase("application", "octet-stream")
+		part.set_payload(attachment.read())
+
+	# Encode file in ASCII characters to send by email    
+	encoders.encode_base64(part)
+	#encoders.encode_base64()
+
+	# Add header as key/value pair to attachment part
+	part.add_header(
+		"Content-Disposition",
+		f"attachment; filename = {Zolotaia_orda};"
+
+	)	
+
+	# Add attachment to message and convert message to string
+	message.attach(part)
+	text = message.as_string()
+
+	# Localg in to server using secure context and send email
+	context = ssl.create_default_context()
+	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		server.login(sender_email, password)
+		server.sendmail(sender_email, receiver_email, text)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
-	imp_sov = ['https://www.reviewdetector.ru/index.php?showforum=69&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=', 'https://www.reviewdetector.ru/index.php?showforum=70&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=']
-	forum_name = ['imper.html','sovet.html']
-	for q in range (2):
+	imp_sov = ['https://www.reviewdetector.ru/index.php?showforum=69&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=', 'https://www.reviewdetector.ru/index.php?showforum=70&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=',
+	'https://www.reviewdetector.ru/index.php?showforum=68&prune_day=100&sort_by=Z-A&sort_key=last_post&topicfilter=all&st=0']
+	forum_name = ['imper.html','sovet.html','Zolotaia_orda.html']
+	for q in range (3):
 		currentNumber();
 		userDate = currentNumber()
 		allPages = []
@@ -51,12 +216,15 @@ def main():
 		lot_price = showPrice(soups)
 		createXML(description,allPages,pictures,lot_price)
 		CuteXML(forum_name[q])
-	
+	sendImper()
+	sendSovet()
+	sendZolotaia()
 
-	#print(lot_price)	
-	#print(pictures)
-	#print(description)
-	#chekDates(userDate,text)
+
+
+
+
+
 
 def parse(html):
 	hrefs = []
@@ -86,7 +254,7 @@ def showInfo(soups):
 	for i in range (len(soups)):
 		text = soups[i].find(class_ = "maintitle")
 		text = str(text)
-		text = text[35:]
+		text = text[32:]
 		lastId = text.find('окончание')
 		text = text[:lastId+26]
 		text = re.sub(r'</b>,','  ',text)
@@ -102,9 +270,6 @@ def showInfo1(soups):
 		soup1 = BeautifulSoup(pic_wall,'lxml')
 		pic = soup1.select("a")
 		pics.append(pic)
-	#for i in range(len(pics)):
-		#spl = pics[i].split('</a>')
-		#for i in range(len(spl)):
 	return pics
 
 def showPrice(soups):
@@ -179,16 +344,16 @@ def createXML(title,lotsHrefs,pics,last_prices):
  
 def CuteXML(forum_name):
 	getdefaultencoding()
-	data = open('C:\\xampp\\htdocs\\парсер\\pars.xslt')
+	data = open('C:\\xampp\\htdocs\\pars\\pars.xslt')
 	xslt_content = data.read()
 	#xslt_content = etree.tostring(xslt_content)
 	xslt_content= xslt_content.encode()
 	xslt_root = etree.XML(xslt_content)
 	#xslt_root = etree.tostring(xslt_root)
-	dom = etree.parse('C:\\xampp\\htdocs\\парсер\\loots1.xml')
+	dom = etree.parse('C:\\xampp\\htdocs\\pars\\loots1.xml')
 	transform = etree.XSLT(xslt_root)
 	result = transform(dom)
-	f = open('C:\\xampp\\htdocs\\парсер\\' + forum_name, 'w')
+	f = open('C:\\xampp\\htdocs\\pars\\' + forum_name, 'w')
 	f.write(str(result))
 	f.close()
 
